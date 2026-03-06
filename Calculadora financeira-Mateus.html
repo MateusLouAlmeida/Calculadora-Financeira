@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora financeira</title>
+</head>
+<body>
+    <h2>Descubra o ganho que você pode ter se fizer uso da nossa tecnologia</h2>
+    <div><input placeholder ='Qual o Volume do seu silo em M³ (metro cúbico)'type="text" id="volume_id"></div>
+    <div><input placeholder="Qual o PH do grão?" type="text" id="ph_id"></div>
+    <div><input placeholder="Preço da saca do grão. (XX.XX)" type="text" id="preco_id"></div>
+    
+    <button onclick="calcular()">Calcule a perda</button>
+    <p id="id"></p>
+</body>
+</html>
+<script>
+    function calcular() {
+    let volume = Number(volume_id.value)
+    let preco = Number(preco_id.value)
+    let ph = Number(ph_id.value) // O PH é o peso de 100 litros do cereal, forma utilizada pra saber a densidade do grão.
+    let volume_total = (ph*10)*volume // Como 1.000 l são 1m³, e 1 ph = 100l, 80 ph = 800kg/m³ por exemplo
+    let sacas = (volume_total/60)// O preço é medido em sacas e 1 saca = 60kg.
+    sacas = Number(sacas.toFixed(0))// toFixed() é usado pra arredondar, porém como ele retorna uma string, eu uso o Number() também
+    let valor = sacas*preco
+    let perda_total = valor*0.2 // A perda estimada de silos sem monitoramento é de 20%
+    perda_saca = perda_total/sacas
+    id.innerHTML = `Você tem um total de ${sacas} sacas, a perda por saca é de R$${perda_saca.toFixed(2)} `
+    id.innerHTML += `<br>A perda total estimada é de R$${perda_total.toFixed(2)} no total`
+    }
+</script>
